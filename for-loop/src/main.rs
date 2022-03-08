@@ -41,7 +41,7 @@ fn car_factory(order: i32, miles: u32) -> Car {
     // Valid color = 1, 2, 3, or 4
     // If color > 4, reduce color to valid index
     let mut color = order as usize;
-    while color > 4 {
+    while color > 3 {
         // color = 5 --> index 1, 6 --> 2, 7 --> 3, 8 --> 4
         color -= 4;
     }
@@ -60,7 +60,7 @@ fn car_factory(order: i32, miles: u32) -> Car {
 
     // Return requested "Car"
     Car {
-        color: String::from(colors[(color - 1) as usize]),
+        color: String::from(colors[(color) as usize]),
         motor: motor,
         roof: roof,
         age: car_quality(miles),
@@ -74,8 +74,7 @@ fn main() {
     // Declare a car as mutable "Car" struct
     let mut car: Car;
     let mut miles = 0;
-    let mut order = 1;
-    loop {
+    for order in 0..11 {
         // Order 6 cars, increment "order" for each request
         car = car_factory(order, miles);
         orders.insert(order, car);
@@ -85,10 +84,6 @@ fn main() {
             miles = 0;
         } else {
             miles = miles + 700;
-        }
-        order += 1;
-        if order > 11 {
-            break;
         }
     }
 }
